@@ -48,6 +48,7 @@ jobs:
         TUSHARE_TOKEN: ${{ secrets.TUSHARE_TOKEN }}
       run: |
         echo "开始拉取所有A股股票数据..."
+        echo "注意: 使用保守限流策略（每分钟45次/每天7500次）以避免API限制"
         python scripts/tushare_offline_fetcher.py --all --days ${{ github.event.inputs.days || 365 }} ${{ github.event.inputs.force_update == 'true' && '--force' || '' }}
     
     - name: Fetch specific stocks data
@@ -61,6 +62,8 @@ jobs:
         python scripts/tushare_offline_fetcher.py --symbols $SYMBOLS --days ${{ github.event.inputs.days || 365 }} ${{ github.event.inputs.force_update == 'true' && '--force' || '' }}
     
     - name: Show data summary
+      env:
+        TUSHARE_TOKEN: ${{ secrets.TUSHARE_TOKEN }}
       run: |
         echo "本地数据摘要:"
         python scripts/tushare_offline_fetcher.py --summary
