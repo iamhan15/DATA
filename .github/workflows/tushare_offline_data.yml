@@ -48,7 +48,7 @@ jobs:
         TUSHARE_TOKEN: ${{ secrets.TUSHARE_TOKEN }}
       run: |
         echo "开始拉取所有A股股票数据..."
-        python scripts/tushare_offline_fetcher.py --all --days ${{ github.event.inputs.days || 365 }} ${{ github.event.inputs.force_update == 'true' && '--force' || '' }}
+        python wyckoff_github/scripts/tushare_offline_fetcher.py --all --days ${{ github.event.inputs.days || 365 }} ${{ github.event.inputs.force_update == 'true' && '--force' || '' }}
     
     - name: Fetch specific stocks data
       if: github.event.inputs.symbols != ''
