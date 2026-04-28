@@ -124,7 +124,7 @@ class TushareOfflineFetcher:
         if not self.token:
             raise ValueError("未找到 Tushare token，请设置 TUSHARE_TOKEN 环境变量或在 Streamlit session 中配置")
         
-        self.rate_limiter = TushareRateLimiter(max_calls_per_minute=50, max_calls_per_day=8000)
+        self.rate_limiter = TushareRateLimiter(max_calls_per_minute=49, max_calls_per_day=7999)
         self.pro = self._init_pro_api()
         
         # 数据保存目录
