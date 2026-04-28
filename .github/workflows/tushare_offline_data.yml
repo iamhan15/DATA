@@ -48,7 +48,7 @@ jobs:
         TUSHARE_TOKEN: ${{ secrets.TUSHARE_TOKEN }}
       run: |
         echo "开始拉取所有A股股票数据..."
-        python wyckoff_github/scripts/tushare_offline_fetcher.py --all --days ${{ github.event.inputs.days || 365 }} ${{ github.event.inputs.force_update == 'true' && '--force' || '' }}
+        python $GITHUB_WORKSPACE/wyckoff_github/scripts/tushare_offline_fetcher.py --all --days ${{ github.event.inputs.days || 365 }} ${{ github.event.inputs.force_update == 'true' && '--force' || '' }}
     
     - name: Fetch specific stocks data
       if: github.event.inputs.symbols != ''
@@ -58,12 +58,12 @@ jobs:
         echo "开始拉取指定股票数据: ${{ github.event.inputs.symbols }}"
         # 将逗号分隔的股票代码转换为空格分隔
         SYMBOLS=$(echo "${{ github.event.inputs.symbols }}" | tr ',' ' ')
-        python wyckoff_github/scripts/tushare_offline_fetcher.py --symbols $SYMBOLS --days ${{ github.event.inputs.days || 365 }} ${{ github.event.inputs.force_update == 'true' && '--force' || '' }}
+        python $GITHUB_WORKSPACE/wyckoff_github/scripts/tushare_offline_fetcher.py --symbols $SYMBOLS --days ${{ github.event.inputs.days || 365 }} ${{ github.event.inputs.force_update == 'true' && '--force' || '' }}
     
     - name: Show data summary
       run: |
         echo "本地数据摘要:"
-        python wyckoff_github/scripts/tushare_offline_fetcher.py --summary
+        python $GITHUB_WORKSPACE/wyckoff_github/scripts/tushare_offline_fetcher.py --summary
     
     - name: Commit and push data
       run: |
