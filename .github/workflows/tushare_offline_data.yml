@@ -63,7 +63,7 @@ jobs:
     - name: Show data summary
       run: |
         echo "本地数据摘要:"
-        python scripts/tushare_offline_fetcher.py --summary
+        python wyckoff_github/scripts/tushare_offline_fetcher.py --summary
     
     - name: Commit and push data
       run: |
