@@ -1,6 +1,6 @@
 name: Tushare Offline Data Fetch
 
-on:
+# on:
   schedule:
     # 每天 UTC 时间 10:00 运行（北京时间 18:00，收盘后）
     - cron: '0 10 * * *'
